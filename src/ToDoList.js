@@ -13,17 +13,24 @@ class ToDoList extends Component {
   render() {
     return (
       <Fragment>
-        <h1>Learning React</h1>
+        {/* 点击label触发input聚焦事件 */}
+        <label htmlFor="insertArea">Learning React</label>
         <InputItem
+          id="insertArea"
+          onFocus={ () => { console.log('input 聚集了') }}
+          onBlur={ () => {console.log('input 失焦了')}}
           value={ this.state.inputValue }
           onChange={ v => this.handlerInputChange(v) }
-        />
+        >
+          输入内容
+        </InputItem>
         <Button onClick={ this.handleButtonClick }>提交</Button>
         <ul>
           {
             this.state.list.map((item, index) => {
               return <li 
                       key={ index }
+                      // 解析带有HTML对字符串
                       dangerouslySetInnerHTML={{__html: item}}
                       onClick={ () => this.handleItemDelete(index) }
                     />
