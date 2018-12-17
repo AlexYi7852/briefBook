@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { Button, InputItem } from 'antd-mobile'
 import ToDoItem from './ToDoItem'
+import Test from './Test'
 class ToDoList extends Component {
   constructor(props) {
     super(props)
+    // 当组件的state和props发生变化,render函数就好重新执行
     this.state = {
       list: [],
       inputValue: ''
@@ -11,6 +13,7 @@ class ToDoList extends Component {
   }
 
   render() {
+    console.log('render>>>>>>>>>>>>')
     return (
       <Fragment>
         {/* 点击label触发input聚焦事件 */}
@@ -24,6 +27,7 @@ class ToDoList extends Component {
         </InputItem>
         <Button onClick={ this.handleButtonClick }>提交</Button>
         <ul>{ this.getToDoItem() }</ul>
+        <Test content={ this.state.inputValue }></Test>
       </Fragment>
     );
   }
