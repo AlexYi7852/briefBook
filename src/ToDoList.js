@@ -24,10 +24,9 @@ class ToDoList extends Component {
             this.state.list.map((item, index) => {
               return <li 
                       key={ index }
+                      dangerouslySetInnerHTML={{__html: item}}
                       onClick={ () => this.handleItemDelete(index) }
-                    >
-                      { item }
-                    </li>
+                    />
             })
           }
         </ul>
@@ -49,7 +48,6 @@ class ToDoList extends Component {
   }
 
   handleItemDelete (index) {
-    console.log('del>>>>')
     const list = [...this.state.list]
     list.splice(index, 1)
     this.setState({
