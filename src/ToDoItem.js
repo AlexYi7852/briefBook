@@ -2,17 +2,19 @@ import React, { Component, Fragment } from 'react'
 
 class ToDoItem extends Component {
     render () {
+        const { content } = this.props
         return (
             <Fragment>
                 <div onClick={ this.handleClick }>
-                    { this.props.content }
+                    { content }
                 </div>
             </Fragment>
         )
     }
 
     handleClick = () => {
-        this.props.delItem(this.props.index)
+        const { delItem, index } = this.props
+        delItem(index)
     }
 }
 

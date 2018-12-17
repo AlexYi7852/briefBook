@@ -18,44 +18,51 @@ class ToDoList extends Component {
         <InputItem
           id="insertArea"
           value={ this.state.inputValue }
-          onChange={ v => this.handlerInputChange(v) }
+          onChange={ this.handlerInputChange }
         >
           输入内容
         </InputItem>
         <Button onClick={ this.handleButtonClick }>提交</Button>
-        <ul>
-          {
-            this.state.list.map((item, index) => {
-              return <ToDoItem 
-                      index={index}
-                      content={item}
-                      delItem={this.handleItemDelete}
-                    />
-            })
-          }
-        </ul>
+        <ul>{ this.getToDoItem() }</ul>
       </Fragment>
     );
   }
 
-  handlerInputChange (e) {
-    this.setState({
-        inputValue: e
+  getToDoItem () {
+    return this.state.list.map((item, index) => {
+      return <ToDoItem 
+              key={index}
+              index={index}
+              content={item}
+              delItem={this.handleItemDelete}
+            />
     })
+  }
+
+  handlerInputChange = (e) => {
+    // 新版 es6 写法
+    // this.setState(() => {
+    //   return { inputValue: e }
+    // })
+    // return简写
+    this.setState(() => ({ inputValue: e }))
   }
 
   handleButtonClick = () => {
-    this.setState({
+    // 新版 es6 写法 return 简写
+    // this.setState接受一个参数prevState(修改数据之前的state)
+    this.setState((prevState) => ({
       inputValue: '',
-      list: [...this.state.list, this.state.inputValue]
-    })
+      list: [...prevState.list, prevState.inputValue]
+    }))
   }
 
   handleItemDelete = (index) => {
-    const list = [...this.state.list]
-    list.splice(index, 1)
-    this.setState({
-      list: list
+    this.setState((prevState) => {
+      const list = [...prevState.list]
+      list.splice(index, 1)
+      // key和value一样的话，后面的value可以省略
+      return { list }
     })
   }
 }
