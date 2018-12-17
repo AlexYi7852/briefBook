@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
 
 class ToDoItem extends Component {
     render () {
@@ -19,3 +20,9 @@ class ToDoItem extends Component {
 }
 
 export default ToDoItem;
+
+ToDoItem.propTypes = {
+    content: PropTypes.string,
+    index: PropTypes.number,
+    delItem: PropTypes.func
+}
