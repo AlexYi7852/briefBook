@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Button, InputItem } from 'antd-mobile'
-
+import ToDoItem from './ToDoItem'
 class ToDoList extends Component {
   constructor(props) {
     super(props)
@@ -17,8 +17,6 @@ class ToDoList extends Component {
         <label htmlFor="insertArea">Learning React</label>
         <InputItem
           id="insertArea"
-          onFocus={ () => { console.log('input 聚集了') }}
-          onBlur={ () => {console.log('input 失焦了')}}
           value={ this.state.inputValue }
           onChange={ v => this.handlerInputChange(v) }
         >
@@ -28,11 +26,10 @@ class ToDoList extends Component {
         <ul>
           {
             this.state.list.map((item, index) => {
-              return <li 
-                      key={ index }
-                      // 解析带有HTML对字符串
-                      dangerouslySetInnerHTML={{__html: item}}
-                      onClick={ () => this.handleItemDelete(index) }
+              return <ToDoItem 
+                      index={index}
+                      content={item}
+                      delItem={this.handleItemDelete}
                     />
             })
           }
@@ -43,7 +40,7 @@ class ToDoList extends Component {
 
   handlerInputChange (e) {
     this.setState({
-      inputValue: e
+        inputValue: e
     })
   }
 
@@ -54,7 +51,7 @@ class ToDoList extends Component {
     })
   }
 
-  handleItemDelete (index) {
+  handleItemDelete = (index) => {
     const list = [...this.state.list]
     list.splice(index, 1)
     this.setState({
