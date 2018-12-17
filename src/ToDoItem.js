@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 
 class ToDoItem extends Component {
     render () {
-        const { content } = this.props
+        const { content, test } = this.props
         return (
             <Fragment>
                 <div onClick={ this.handleClick }>
-                    { content }
+                  { test } - { content }
                 </div>
             </Fragment>
         )
@@ -19,10 +19,17 @@ class ToDoItem extends Component {
     }
 }
 
-export default ToDoItem;
-
+// isRequired 必须传递
 ToDoItem.propTypes = {
     content: PropTypes.string,
     index: PropTypes.number,
-    delItem: PropTypes.func
+    delItem: PropTypes.func,
+    test: PropTypes.string.isRequired
 }
+
+// 给test添加默认值
+ToDoItem.defaultProps = {
+    test: 'hello world'
+}
+
+export default ToDoItem;
