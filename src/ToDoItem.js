@@ -2,7 +2,15 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 class ToDoItem extends Component {
+    // 当一个组件从父组件接收了参数
+    // 如果这个第一次组件存在于父组件中，不会执行
+    // 如果这个组件之前已经存在于父组件，才会执行
+    componentWillReceiveProps () {
+        console.log('child componentWillReceiveProps>>>>>>>')
+      }    
+
     render () {
+        console.log('child render')
         const { content, test } = this.props
         // JSX => createElement => 虚拟DOM(JS对象) => 真实的DOM
         // 虚拟DOM本质上是通过 React.createElement 创建的
@@ -21,6 +29,11 @@ class ToDoItem extends Component {
     handleClick = () => {
         const { delItem, index } = this.props
         delItem(index)
+    }
+
+    // 当这个组件即将从页面中剔除当时候，会自动执行
+    componentWillUnmount () {
+        console.log('child componentWillUnmount')
     }
 }
 
