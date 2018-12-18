@@ -2,25 +2,24 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 class ToDoItem extends Component {
-    // 当一个组件从父组件接收了参数
-    // 如果这个第一次组件存在于父组件中，不会执行
-    // 如果这个组件之前已经存在于父组件，才会执行
-    componentWillReceiveProps () {
-        console.log('child componentWillReceiveProps>>>>>>>')
-      }    
+
+    // 接收两个参数nextProps、nextState
+    shouldComponentUpdate (nextProps, nextState) {
+        console.log(`nextProps.content is ${nextProps.content}, this.props.content is ${this.props.content}`)
+        if (nextProps.content === this.props.content) {
+            return false
+        }
+    }
 
     render () {
         console.log('child render')
-        const { content, test } = this.props
+        const { content } = this.props
         // JSX => createElement => 虚拟DOM(JS对象) => 真实的DOM
-        // 虚拟DOM本质上是通过 React.createElement 创建的
-        // return React.createElement('div', {}, 'hello world')
-        // return <div><span>item</span></div>
-        // return React.createElement('div', {}, React.createElement('span', {}, 'item'))
+        // 虚拟DOM本质上是通过 React.createElement 创建的一个JS对象
         return (
             <Fragment>
             <div onClick={ this.handleClick }>
-                { test } - { content }
+                { content }
             </div>
         </Fragment>
         )
@@ -31,10 +30,6 @@ class ToDoItem extends Component {
         delItem(index)
     }
 
-    // 当这个组件即将从页面中剔除当时候，会自动执行
-    componentWillUnmount () {
-        console.log('child componentWillUnmount')
-    }
 }
 
 // isRequired 必须传递
@@ -42,12 +37,11 @@ ToDoItem.propTypes = {
     content: PropTypes.string,
     index: PropTypes.number,
     delItem: PropTypes.func,
-    test: PropTypes.string.isRequired
 }
 
 // 给test添加默认值
 ToDoItem.defaultProps = {
-    test: 'hello world'
+    content: 'hello world'
 }
 
 export default ToDoItem;

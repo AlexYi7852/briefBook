@@ -5,45 +5,15 @@ class ToDoList extends Component {
   // 会在组件创建的时候调用，但它不是react独有的
   constructor(props) {
     super(props)
-    // 当组件的state和props发生变化,render函数就好重新执行
+    
     this.state = {
       list: [],
       inputValue: ''
     }
-    console.log('constructor>>>>>>>>')
   }
 
-  // 在组件即将挂载到页面的时候自动执行
-  componentWillMount () {
-    console.log('componentWillMount')
-  }
-
-  // 在组件挂载到页面的时候自动执行
-  componentDidMount () {
-    console.log('componentDidMount')
-  }
-
-  // 组件被更新之前自动执行
-  // 中译：组件是否需要更新，
-  // 返回是一个Boolean值，默认返回true
-  // 返回false的时候，后面的函数都不执行
-  shouldComponentUpdate () {
-    console.log('shouldComponentUpdate>>>>>>>')
-    return true
-  }
-
-  // 组件更新之前的时候自动执行
-  componentWillUpdate () {
-    console.log('componentWillUpdate')
-  }
-
-  // 组件更新之后自动执行
-  componentDidUpdate () {
-    console.log('compoentDidUpdate')
-  }
-
+  // 当组件的state和props发生变化,render函数就好重新执行
   render() {
-    console.log('parent render>>>>>>>>>')
     return (
       <Fragment>
         {/* 点击label触发input聚焦事件 */}
@@ -76,19 +46,18 @@ class ToDoList extends Component {
   }
 
   handlerInputChange = (e) => {
-    // input标签可以通过ref来获取dom
-    // console.log(this.input.value)
-    // 数据驱动尽量不要使用ref操作DOM
     this.setState(() => ({ inputValue: e }))
   }
 
   handleButtonClick = () => {
-    // 新版 es6 写法 return 简写
     // this.setState接受一个参数prevState(修改数据之前的state)
-    this.setState((prevState) => ({
-      inputValue: '',
-      list: [...prevState.list, prevState.inputValue]
-    }), () => {
+    this.setState((prevState) => {
+      console.log(`prevState is ${ JSON.stringify(prevState)}`)
+      return {
+        inputValue: '',
+        list: [...prevState.list, prevState.inputValue]
+      }
+    }, () => {
       console.log(this.ul.querySelectorAll('div').length)
     })
   }
