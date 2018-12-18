@@ -4,12 +4,17 @@ import PropTypes from 'prop-types'
 class ToDoItem extends Component {
     render () {
         const { content, test } = this.props
+        // JSX => createElement => 虚拟DOM(JS对象) => 真实的DOM
+        // 虚拟DOM本质上是通过 React.createElement 创建的
+        // return React.createElement('div', {}, 'hello world')
+        // return <div><span>item</span></div>
+        // return React.createElement('div', {}, React.createElement('span', {}, 'item'))
         return (
             <Fragment>
-                <div onClick={ this.handleClick }>
-                  { test } - { content }
-                </div>
-            </Fragment>
+            <div onClick={ this.handleClick }>
+                { test } - { content }
+            </div>
+        </Fragment>
         )
     }
 

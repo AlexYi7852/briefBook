@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Button, InputItem } from 'antd-mobile'
 import ToDoItem from './ToDoItem'
-import Test from './Test'
 class ToDoList extends Component {
   constructor(props) {
     super(props)
@@ -13,7 +12,6 @@ class ToDoList extends Component {
   }
 
   render() {
-    console.log('render>>>>>>>>>>>>')
     return (
       <Fragment>
         {/* 点击label触发input聚焦事件 */}
@@ -22,12 +20,14 @@ class ToDoList extends Component {
           id="insertArea"
           value={ this.state.inputValue }
           onChange={ this.handlerInputChange }
+          ref={(input) => { this.input = input }}
         >
           输入内容
         </InputItem>
         <Button onClick={ this.handleButtonClick }>提交</Button>
-        <ul>{ this.getToDoItem() }</ul>
-        <Test content={ this.state.inputValue }></Test>
+        <ul ref={ (ul) => { this.ul = ul }}>
+          { this.getToDoItem() }
+        </ul>
       </Fragment>
     );
   }
@@ -44,11 +44,9 @@ class ToDoList extends Component {
   }
 
   handlerInputChange = (e) => {
-    // 新版 es6 写法
-    // this.setState(() => {
-    //   return { inputValue: e }
-    // })
-    // return简写
+    // input标签可以通过ref来获取dom
+    // console.log(this.input.value)
+    // 数据驱动尽量不要使用ref操作DOM
     this.setState(() => ({ inputValue: e }))
   }
 
@@ -58,7 +56,9 @@ class ToDoList extends Component {
     this.setState((prevState) => ({
       inputValue: '',
       list: [...prevState.list, prevState.inputValue]
-    }))
+    }), () => {
+      console.log(this.ul.querySelectorAll('div').length)
+    })
   }
 
   handleItemDelete = (index) => {
