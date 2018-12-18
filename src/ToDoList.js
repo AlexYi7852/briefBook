@@ -1,35 +1,27 @@
 import React, { Component, Fragment } from 'react'
 import { Input, Button, List } from 'antd'
+import store from './store'
 import 'antd/dist/antd.css'
 
 class ToDoList extends Component {
     constructor (props) {
         super(props)
-        this.state = {
-            list: [],
-            inputValue: '',
-            data: [
-                'hello world',
-                'hello yiye',
-                'hello xingzi',
-                'hello ziqing'
-            ]
-        }
+        this.state = store.getState()
     }
-
-    
 
     render () {
         return (
             <Fragment>
                 <Input 
+                    value={this.state.inputValue}
                     style={{width: 300, margin: 10}}
                     placeholder='todo info'
+                    onChange={ this.handleInputChange }
                 />
                 <Button type='primary'>提交</Button>
                 <List
                     bordered
-                    dataSource={this.state.data}
+                    dataSource={this.state.list}
                     style={{width: 300, margin: 10}}
                     renderItem={item => (<List.Item>{item}</List.Item>)}
                 >
@@ -37,6 +29,10 @@ class ToDoList extends Component {
                 </List>
             </Fragment>
         )
+    }
+
+    handleInputChange = () => {
+        console.log('hello helo')
     }
 }
 
