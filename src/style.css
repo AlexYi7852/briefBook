@@ -1,39 +1,26 @@
-
-.show {
-    animation:  show-item 2s ease-in forwards;
+/* 入场动画执行的第一个时刻 添加的class名 */
+.fade-enter , .fade-appear {
+    opacity: 0;
+}
+.fade-enter-active, .fade-appear-active {
+    opacity: 1;
+    transition: opacity 1s ease-in;
+}
+/* 入场动画执行完成的时候 添加的class名 */
+.fade-enter-done {
+    opacity: 1;
 }
 
-/* forwards 能让动画结束的时候保留最后一祯的样子 */
-.hide {
-    animation:  hide-item 2s ease-in forwards;
+/* 出场动画执行的第一个时刻 添加的class名 */
+.fade-exit {
+    opacity: 1;
 }
 
-@keyframes show-item {
-    0% {
-        opacity: 0;
-        color: red;
-    }
-    50% {
-        opacity: .5;
-        color: green;
-    }
-    100% {
-        opacity: 1;
-        color: blue;
-    }
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 1s ease-in;
 }
-
-@keyframes hide-item {
-    0% {
-        opacity: 1;
-        color: red;
-    }
-    50% {
-        opacity: .5;
-        color: green;
-    }
-    100% {
-        opacity: 0;
-        color: blue;
-    }
+/* 出场动画执行完成的时候 添加的class名 */
+.fade-exit-done {
+    opacity: 0;
 }
