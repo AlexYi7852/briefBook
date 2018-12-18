@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Button, InputItem } from 'antd-mobile'
 import ToDoItem from './ToDoItem'
+import axios from 'axios'
 class ToDoList extends Component {
   // 会在组件创建的时候调用，但它不是react独有的
   constructor(props) {
@@ -10,6 +11,18 @@ class ToDoList extends Component {
       list: [],
       inputValue: ''
     }
+  }
+
+  componentDidMount () {
+    // 通过charles mock数据
+    axios.get('/api/ToDoList')
+      .then(res => {
+        this.setState(() => ({
+          list: [ ...res.data ]
+        }))
+      }).catch(err => {
+        console.log(err, 'request fail')
+      })
   }
 
   // 当组件的state和props发生变化,render函数就好重新执行

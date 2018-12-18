@@ -5,7 +5,6 @@ class ToDoItem extends Component {
 
     // 接收两个参数nextProps、nextState
     shouldComponentUpdate (nextProps, nextState) {
-        console.log(`nextProps.content is ${nextProps.content}, this.props.content is ${this.props.content}`)
         if (nextProps.content === this.props.content) {
             return false
         }
