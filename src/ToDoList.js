@@ -1,8 +1,9 @@
-import React, { Component, Fragment } from 'react'
-import { Input, Button, List } from 'antd'
+
 import store from './store'
+import ToDoListUI from './ToDoListUI'
+import React, { Component } from 'react'
 import { getInputChangeAction, getAddItemAction, getDelItemAction } from './store/actionCreators'
-import 'antd/dist/antd.css'
+
 
 class ToDoList extends Component {
     constructor (props) {
@@ -12,28 +13,13 @@ class ToDoList extends Component {
     }
 
     render () {
-        return (
-            <Fragment>
-                <Input 
-                    value={ this.state.inputValue }
-                    style={{ width: 300, margin: 10 }}
-                    placeholder='todo info'
-                    onChange={ this.handleInputChange }
-                />
-                <Button type='primary' onClick={ this.handleAddItem }>提交</Button>
-                <List
-                    bordered
-                    dataSource={ this.state.list }
-                    style={{ width: 300, margin: 10 }}
-                    renderItem={ (item, index) => {
-                        return (
-                            <List.Item onClick={ this.handleItemDelete.bind(this, index) }>{ item }</List.Item>
-                        )
-                    }}
-                >
-                </List>
-            </Fragment>
-        )
+        return <ToDoListUI
+                    list={ this.state.list }
+                    inputValue={ this.state.inputValue }
+                    handleAddItem={ this.handleAddItem }
+                    handleItemDelete={ this.handleItemDelete }
+                    handleInputChange={ this.handleInputChange }
+               />
     }
 
     handleInputChange = (e) => {
@@ -46,7 +32,7 @@ class ToDoList extends Component {
         store.dispatch(action)
     }
 
-    handleItemDelete (index) {
+    handleItemDelete = (index) => {
         const action = getDelItemAction(index)
         store.dispatch(action)
     }
