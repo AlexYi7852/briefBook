@@ -1,10 +1,13 @@
-
-import store from './store'
-import ToDoListUI from './ToDoListUI'
-import React, { Component } from 'react'
-import { getInputChangeAction, getAddItemAction, getDelItemAction } from './store/actionCreators'
-
-
+import axios from 'axios';
+import store from './store';
+import ToDoListUI from './ToDoListUI';
+import React, { Component } from 'react';
+import { 
+    initListAction,
+    getAddItemAction,
+    getDelItemAction,
+    getInputChangeAction
+} from './store/actionCreators'
 class ToDoList extends Component {
     constructor (props) {
         super(props)
@@ -27,13 +30,22 @@ class ToDoList extends Component {
         store.dispatch(action)
     }
 
+    componentDidMount () {
+        axios.get('/api/ToDoList')
+            .then(res => {
+                let action = initListAction(res.data)
+                store.dispatch(action)
+            }).catch(err => {
+                console.log(err)
+            })
+    }
+
     handleAddItem = () => {
         const action = getAddItemAction()
         store.dispatch(action)
     }
 
     handleItemDelete = (index) => {
-        console.log(index, 'index')
         const action = getDelItemAction(index)
         store.dispatch(action)
     }
