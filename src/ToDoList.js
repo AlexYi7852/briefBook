@@ -24,9 +24,12 @@ class ToDoList extends Component {
                     bordered
                     dataSource={ this.state.list }
                     style={{ width: 300, margin: 10 }}
-                    renderItem={ item => (<List.Item>{ item }</List.Item>)}
+                    renderItem={ (item, index) => {
+                        return (
+                            <List.Item onClick={ this.handleItemDelete.bind(this, index) }>{ item }</List.Item>
+                        )
+                    }}
                 >
-
                 </List>
             </Fragment>
         )
@@ -41,10 +44,19 @@ class ToDoList extends Component {
     }
 
     handleAddItem = () => {
-        this.setState((prevState) => ({
-            inputValue: '',
-            list: [ ...prevState.list, prevState.inputValue]
-        }))
+        let action = {
+            type: 'add_todo_item',
+            inputValue: this.state.inputValue
+        }
+        store.dispatch(action)
+    }
+
+    handleItemDelete (index) {
+        let action = {
+            index,
+            type: 'delete_todo_item'
+        }
+        store.dispatch(action)
     }
 
     handleStoreChange = () => {
