@@ -33,6 +33,7 @@ class ToDoList extends Component {
     }
 
     handleItemDelete = (index) => {
+        console.log(index, 'index')
         const action = getDelItemAction(index)
         store.dispatch(action)
     }
