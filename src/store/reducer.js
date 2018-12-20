@@ -15,19 +15,21 @@ const defaultState = {
 // 就一定会有固定的输出，而且不会有任何副作用
 export default (state = defaultState, action) => {
     const newState = JSON.parse(JSON.stringify(state))
-    if (action.type === CHANGE_INPUT_VALUE) {
-        newState.inputValue = action.value
-        return newState
-    } else if (action.type === ADD_TODO_ITEM) {
-        newState.list.push(newState.inputValue)
-        newState.inputValue = ''
-        return newState
-    } else if (action.type === DEL_TODO_ITEM) {
-        newState.list.splice(action.index, 1)
-        return newState
-    } else if (action.type === INIT_LIST_ACTION) {
-        newState.list = action.list
-        return newState
+    switch (action.type) {
+        case CHANGE_INPUT_VALUE:
+            newState.inputValue = action.value;
+            return newState;
+        case ADD_TODO_ITEM:
+            newState.list.push(newState.inputValue);
+            newState.inputValue = '';
+            return newState;
+        case DEL_TODO_ITEM:
+            newState.list.splice(action.index, 1);
+            return newState;
+        case INIT_LIST_ACTION:
+            newState.list = action.list;
+            return newState;
+        default:
+            return state;
     }
-    return state
 }
