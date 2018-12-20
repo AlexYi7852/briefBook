@@ -1,6 +1,7 @@
 import { 
     ADD_TODO_ITEM,
     DEL_TODO_ITEM,
+    GET_INIT_LIST,
     INIT_LIST_ACTION,
     CHANGE_INPUT_VALUE
 } from './actionTypes'
@@ -36,3 +37,7 @@ export const getToDoList = () => {
             })
     }
 }
+
+export const getInitList = () => ({
+    type: GET_INIT_LIST
+})
