@@ -1,10 +1,8 @@
 
-export const ADD_TODO_ITEM = 'ADD_TODO_ITEM'
-
-export const DEL_TODO_ITEM = 'DEL_TODO_ITEM'
-
-export const INIT_LIST_ACTION = 'INIT_LIST_ACTION'
+export const GET_INIT_LIST = 'GET_INIT_LIST'
 
 export const CHANGE_INPUT_VALUE = 'CHANGE_INPUT_VALUE'
 
-export const GET_INIT_LIST = 'GET_INIT_LIST'
+export const ADD_TODO_ITEM = 'ADD_TODO_ITEM'
+
+export const DEL_TODO_ITEM = 'DEL_TODO_ITEM'

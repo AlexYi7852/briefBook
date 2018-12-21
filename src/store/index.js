@@ -1,20 +1,18 @@
 
-import mySaga from './sagas'
 import reducer from './reducer'
-import createSageMiddleware from 'redux-saga'
+import thunk from 'redux-thunk'
+import { createLogger } from 'redux-logger'
 import { createStore, applyMiddleware, compose } from 'redux'
 
-const sagaMiddleware = createSageMiddleware()
+// logger 打印信息
+const logger = createLogger()
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose
 
-const composeEnhancers = 
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
+const enhancer = composeEnhancers(applyMiddleware(thunk, logger))
 
-const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware))
+const store = createStore(
+    reducer,
+    enhancer
+)
 
-const store = createStore(reducer,enhancer)
-
-export default store;
-
-// 执行saga文件
-sagaMiddleware.run(mySaga)
+ export default store;

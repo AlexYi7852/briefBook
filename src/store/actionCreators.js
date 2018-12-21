@@ -1,43 +1,35 @@
-import { 
-    ADD_TODO_ITEM,
-    DEL_TODO_ITEM,
-    GET_INIT_LIST,
-    INIT_LIST_ACTION,
-    CHANGE_INPUT_VALUE
-} from './actionTypes'
-import axios from 'axios'
 
-export const getInputChangeAction = (value) => ({
+import axios from 'axios'
+import { GET_INIT_LIST, CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DEL_TODO_ITEM } from './actionTypes'
+
+export const getChangeInputAction = (value) => ({
     value,
     type: CHANGE_INPUT_VALUE
 })
 
-export const getAddItemAction = () => ({
+export const getAddToDoItemAction = () => ({
     type: ADD_TODO_ITEM
 })
 
-export const getDelItemAction = (index) => ({
+export const InitListAction = (list) => ({
+    list,
+    type: GET_INIT_LIST
+})
+
+export const getDelToDoItemAction = (index) => ({
     index,
     type: DEL_TODO_ITEM
 })
 
-export const initListAction = (list) => ({
-    list,
-    type: INIT_LIST_ACTION
-})
-
-export const getToDoList = () => {
-    // 当你调用 getToDoList method生成一个函数的时候，
-    // 这个函数能够接受到 sotre 的 dispatch方法
+export const getInitAction = () => {
     return (dispatch) => {
         axios.get('/api/ToDoList')
             .then(res => {
-                const action = initListAction(res.data)
+                console.log(res.data)
+                let action = InitListAction(res.data)
                 dispatch(action)
+            }).catch(e => {
+                console.log(e)
             })
     }
 }
-
-export const getInitList = () => ({
-    type: GET_INIT_LIST
-})
